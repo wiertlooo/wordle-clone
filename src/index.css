@@ -1,0 +1,16 @@
+.board {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  border: 1px solid #000;
+}

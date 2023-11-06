@@ -44,7 +44,7 @@ function App() {
   return (
     <div>
       <button onClick={handleClick}>zmień pierwszy element na A</button>
-      <GameBoard />
+      <GameBoard board={board} />
     </div>
   );
 }
