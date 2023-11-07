@@ -3,19 +3,25 @@ import { useState } from "react";
 function GameInput({ updateBoard }) {
   const [userInput, setUserInput] = useState("");
 
+  //updating gameBoard onSubmit
   const handleFormSubmit = (event) => {
-    event.preventDefault();
-
+    event.preventDefault(); //prevent page refresh
+    //swapping current userInput to array so I can map it
     const word = userInput.split("");
 
+    //mapping every letter to call updateBoard function passed from
+    //App.js
     word.map((letter, index) => {
       updateBoard(0, index, letter);
       return letter;
     });
 
+    //setting userInput to blank after Submit
     setUserInput("");
   };
 
+  //input onChange handler, nothing interesting right now, just linking
+  //input with state, so it is controlled by react, not browser
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
   };
