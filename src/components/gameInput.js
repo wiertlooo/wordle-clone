@@ -7,17 +7,20 @@ function GameInput({ updateBoard }) {
   const handleFormSubmit = (event) => {
     event.preventDefault(); //prevent page refresh
     //swapping current userInput to array so I can map it
-    const word = userInput.split("");
+    if (userInput.length === 5) {
+      const word = userInput.split("");
+      //mapping every letter to call updateBoard function passed from
+      //App.js
+      word.map((letter, index) => {
+        updateBoard(0, index, letter);
+        return letter;
+      });
 
-    //mapping every letter to call updateBoard function passed from
-    //App.js
-    word.map((letter, index) => {
-      updateBoard(0, index, letter);
-      return letter;
-    });
-
-    //setting userInput to blank after Submit
-    setUserInput("");
+      //setting userInput to blank after Submit
+      setUserInput("");
+    } else {
+      alert("The word should be 5 letters");
+    }
   };
 
   //input onChange handler, nothing interesting right now, just linking

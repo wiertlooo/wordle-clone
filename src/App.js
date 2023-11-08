@@ -16,7 +16,7 @@ function App() {
   //function used to update cells in gameboard,
   // you need to pass row number, then cell number, and value
   //prevBoard is used bcs otherwise it would update only last index when
-  //called in gameInput due to board rendering issues
+  //called in g ameInput due to board rendering issues
   const updateBoard = (rowNumber, cellNumber, value) => {
     setBoard((prevBoard) => {
       const updatedBoard = prevBoard.map((row, rowIndex) => {
