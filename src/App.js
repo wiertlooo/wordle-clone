@@ -36,15 +36,8 @@ function App() {
     });
   };
 
-  //temporarily using handleClick to test updateBoard function
-  //It works :)
-  const handleClick = () => {
-    updateBoard(0, 3, "A");
-  };
-
   return (
     <div>
-      <button onClick={handleClick}>zmień pierwszy element na A</button>
       <GameInput updateBoard={updateBoard} />
       <GameBoard board={board} />
     </div>

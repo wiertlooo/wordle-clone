@@ -16,6 +16,7 @@ function GameInput({ updateBoard }) {
       if (keyWord === userInput) {
         userWord.map((letter, index) => {
           updateBoard(0, index, letter, "green");
+          return letter;
         });
         alert("you won the game! :D");
       } else {
