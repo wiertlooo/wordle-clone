@@ -1,10 +1,9 @@
-#Stack
-- ReactJS
+#Stack:
+-ReactJS
 
-#Words are mostly in polish so if you want to play the game you should change words.json
+Words are mostly in Polish, so if you want to play the game, you should modify the words.json file.
 
-#You can edit word list in words.json file
+#Currently working on:
+-Implementing a keyboard component instead of the input window.
 
-#Working on:
-
--keyboard component instead of input window
+#The app is still in development. Updates will be provided on a daily basis.
