@@ -8,9 +8,9 @@ function GameBoard({ board }) {
             {/* mapping cells */}
             {row.map((cell, cellIndex) => {
               return (
-                <div key={cellIndex} className="cell">
+                <div key={cellIndex} className={`cell ${cell.color}`}>
                   {/* rendering cell value, works like board[rowIndex][cellIndex] */}
-                  {cell}
+                  {cell.letter}
                 </div>
               );
             })}

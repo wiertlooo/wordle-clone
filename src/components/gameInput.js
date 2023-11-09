@@ -14,23 +14,28 @@ function GameInput({ updateBoard }) {
 
     if (userInput.length === 5) {
       if (keyWord === userInput) {
-        console.log("you won the game! :D");
+        userWord.map((letter, index) => {
+          updateBoard(0, index, letter, "green");
+        });
+        alert("you won the game! :D");
       } else {
         //mapping every letter to call updateBoard function passed from
         //App.js
         userWord.map((letter, index) => {
           if (gameWord[index] === letter) {
             console.log("The letter is in the right place " + letter);
+            updateBoard(0, index, letter, "green");
           } else if (gameWord.includes(letter)) {
             console.log("Main word contains letter: " + letter);
+            updateBoard(0, index, letter, "yellow");
           } else {
             console.log("main word does not contain this letter: " + letter);
+            updateBoard(0, index, letter, "red");
           }
-          updateBoard(0, index, letter);
+
           return letter;
         });
       }
-
       //setting userInput to blank after Submit
       setUserInput("");
     } else {

@@ -8,7 +8,7 @@ function App() {
     //using loop to create 5 rows, 5 cells gameboard
     const initialBoard = [];
     for (let i = 0; i < 5; i++) {
-      initialBoard.push(Array(5).fill(""));
+      initialBoard.push(Array(5).fill({ letter: "", color: "white" }));
     }
     return initialBoard;
   });
@@ -17,13 +17,13 @@ function App() {
   // you need to pass row number, then cell number, and value
   //prevBoard is used bcs otherwise it would update only last index when
   //called in g ameInput due to board rendering issues
-  const updateBoard = (rowNumber, cellNumber, value) => {
+  const updateBoard = (rowNumber, cellNumber, value, color) => {
     setBoard((prevBoard) => {
       const updatedBoard = prevBoard.map((row, rowIndex) => {
         if (rowIndex === rowNumber) {
           return row.map((cell, cellIndex) => {
             if (cellIndex === cellNumber) {
-              return value;
+              return { letter: value, color: color };
             } else {
               return cell;
             }
