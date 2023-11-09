@@ -1,18 +1,24 @@
 .board {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .row {
   display: flex;
-  justify-content: space-between;
 }
 
 .cell {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   margin: 2px;
   border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18 px;
 }
 .cell.green {
   background-color: green;
@@ -22,4 +28,38 @@
 }
 .cell.red {
   background-color: red;
+}
+.input {
+  width: 300px;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  margin: 0 auto;
+}
+.button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.button:hover {
+  background-color: #218838;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
 }

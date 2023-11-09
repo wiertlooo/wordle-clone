@@ -17,8 +17,8 @@ function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
     //swapping current userInput to array so I can map it
 
     if (userInput.length === 5) {
-      const userWord = userInput.split("");
-      const gameWord = keyWord.split("");
+      const userWord = userInput.toUpperCase().split("");
+      const gameWord = keyWord.toUpperCase().split("");
 
       if (keyWord === userInput) {
         userWord.map((letter, index) => {
@@ -56,9 +56,16 @@ function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <input type="text" value={userInput} onChange={handleInputChange} />
-      <button type="submit">Submit</button>
+    <form onSubmit={handleFormSubmit} className="form">
+      <input
+        type="text"
+        value={userInput}
+        onChange={handleInputChange}
+        className="input"
+      />
+      <button type="submit" className="button">
+        Submit
+      </button>
     </form>
   );
 }

@@ -27,7 +27,7 @@ function App() {
         if (rowIndex === rowNumber) {
           return row.map((cell, cellIndex) => {
             if (cellIndex === cellNumber) {
-              return { letter: value, color: color };
+              return { letter: value.toUpperCase(), color: color };
             } else {
               return cell;
             }
@@ -44,15 +44,17 @@ function App() {
     <div>
       {gameWon && <div>You won the game!</div>}
       {gameLost && <div>You lost the game!</div>}
-      {!gameWon && !gameLost && (
-        <GameInput
-          updateBoard={updateBoard}
-          setGameWon={setGameWon}
-          setGameLost={setGameLost}
-          keyWord={randomWord}
-        />
-      )}
-      <GameBoard board={board} />
+      <div className="game">
+        <GameBoard board={board} />
+        {!gameWon && !gameLost && (
+          <GameInput
+            updateBoard={updateBoard}
+            setGameWon={setGameWon}
+            setGameLost={setGameLost}
+            keyWord={randomWord}
+          />
+        )}
+      </div>
     </div>
   );
 }
