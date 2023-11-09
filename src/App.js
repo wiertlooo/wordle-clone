@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GameBoard from "./components/gameBoard";
 import GameInput from "./components/gameInput";
 import wordList from "./words.json";
@@ -13,10 +13,13 @@ function App() {
     }
     return initialBoard;
   });
+  const [keyWord, setKeyWord] = useState("");
   const [gameWon, setGameWon] = useState(false);
   const [gameLost, setGameLost] = useState(false);
   //choosing random word from words.json file
-  const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+  useEffect(() => {
+    setKeyWord(wordList[Math.floor(Math.random() * wordList.length)]);
+  }, []);
   //function used to update cells in gameboard,
   // you need to pass row number, then cell number, and value
   //prevBoard is used bcs otherwise it would update only last index when
@@ -43,7 +46,7 @@ function App() {
   return (
     <div>
       {gameWon && <div>You won the game!</div>}
-      {gameLost && <div>You lost the game!</div>}
+      {gameLost && <div>You lost the game! The word is: {keyWord}</div>}
       <div className="game">
         <GameBoard board={board} />
         {!gameWon && !gameLost && (
@@ -51,7 +54,7 @@ function App() {
             updateBoard={updateBoard}
             setGameWon={setGameWon}
             setGameLost={setGameLost}
-            keyWord={randomWord}
+            keyWord={keyWord}
           />
         )}
       </div>
