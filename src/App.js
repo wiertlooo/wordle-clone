@@ -41,6 +41,7 @@ function App() {
   return (
     <div>
       {gameWon && <div>You won the game!</div>}
+      {gameLost && <div>You lost the game!</div>}
       {!gameWon && !gameLost && (
         <GameInput
           updateBoard={updateBoard}

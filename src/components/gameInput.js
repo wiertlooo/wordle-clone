@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function GameInput({ updateBoard, setGameWon, setGameLost }) {
   const [userInput, setUserInput] = useState("");
@@ -6,6 +6,13 @@ function GameInput({ updateBoard, setGameWon, setGameLost }) {
   const [tryCount, setTryCount] = useState(0);
 
   const keyWord = "wiert";
+
+  useEffect(() => {
+    if (tryCount >= 5) {
+      setGameLost(true);
+      return;
+    }
+  }, [tryCount, setGameLost]);
 
   //updating gameBoard onSubmit
   const handleFormSubmit = (event) => {
