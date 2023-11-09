@@ -12,6 +12,8 @@ function App() {
     }
     return initialBoard;
   });
+  const [gameWon, setGameWon] = useState(false);
+  const [gameLost, setGameLost] = useState(false);
 
   //function used to update cells in gameboard,
   // you need to pass row number, then cell number, and value
@@ -38,7 +40,10 @@ function App() {
 
   return (
     <div>
-      <GameInput updateBoard={updateBoard} />
+      {gameWon && <div>You won the game!</div>}
+      {!gameWon && (
+        <GameInput updateBoard={updateBoard} setGameWon={setGameWon} />
+      )}
       <GameBoard board={board} />
     </div>
   );

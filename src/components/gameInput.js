@@ -1,7 +1,9 @@
 import { useState } from "react";
 
-function GameInput({ updateBoard }) {
+function GameInput({ updateBoard, setGameWon }) {
   const [userInput, setUserInput] = useState("");
+
+  const [tryCount, setTryCount] = useState(0);
 
   const keyWord = "wiert";
 
@@ -15,27 +17,27 @@ function GameInput({ updateBoard }) {
     if (userInput.length === 5) {
       if (keyWord === userInput) {
         userWord.map((letter, index) => {
-          updateBoard(0, index, letter, "green");
+          updateBoard(tryCount, index, letter, "green");
           return letter;
         });
-        alert("you won the game! :D");
+        setGameWon(true);
       } else {
         //mapping every letter to call updateBoard function passed from
         //App.js
         userWord.map((letter, index) => {
           if (gameWord[index] === letter) {
             console.log("The letter is in the right place " + letter);
-            updateBoard(0, index, letter, "green");
+            updateBoard(tryCount, index, letter, "green");
           } else if (gameWord.includes(letter)) {
             console.log("Main word contains letter: " + letter);
-            updateBoard(0, index, letter, "yellow");
+            updateBoard(tryCount, index, letter, "yellow");
           } else {
             console.log("main word does not contain this letter: " + letter);
-            updateBoard(0, index, letter, "red");
+            updateBoard(tryCount, index, letter, "red");
           }
-
           return letter;
         });
+        setTryCount(tryCount + 1);
       }
       //setting userInput to blank after Submit
       setUserInput("");
