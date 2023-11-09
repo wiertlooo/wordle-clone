@@ -1,6 +1,7 @@
 import { useState } from "react";
 import GameBoard from "./components/gameBoard";
 import GameInput from "./components/gameInput";
+import wordList from "./words.json";
 
 function App() {
   //using useState to create initial board that will change during game
@@ -14,7 +15,8 @@ function App() {
   });
   const [gameWon, setGameWon] = useState(false);
   const [gameLost, setGameLost] = useState(false);
-
+  //choosing random word from words.json file
+  const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
   //function used to update cells in gameboard,
   // you need to pass row number, then cell number, and value
   //prevBoard is used bcs otherwise it would update only last index when
@@ -47,6 +49,7 @@ function App() {
           updateBoard={updateBoard}
           setGameWon={setGameWon}
           setGameLost={setGameLost}
+          keyWord={randomWord}
         />
       )}
       <GameBoard board={board} />
