@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function GameInput({ updateBoard, setGameWon }) {
+function GameInput({ updateBoard, setGameWon, setGameLost }) {
   const [userInput, setUserInput] = useState("");
 
   const [tryCount, setTryCount] = useState(0);

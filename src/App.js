@@ -41,8 +41,12 @@ function App() {
   return (
     <div>
       {gameWon && <div>You won the game!</div>}
-      {!gameWon && (
-        <GameInput updateBoard={updateBoard} setGameWon={setGameWon} />
+      {!gameWon && !gameLost && (
+        <GameInput
+          updateBoard={updateBoard}
+          setGameWon={setGameWon}
+          setGameLost={setGameLost}
+        />
       )}
       <GameBoard board={board} />
     </div>
