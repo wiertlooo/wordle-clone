@@ -7,3 +7,5 @@ Words are mostly in Polish, so if you want to play the game, you should modify t
 -Implementing a keyboard component instead of the input window.
 
 #The app is still in development. Updates will be provided on a daily basis.
+
+#You can test the game at: https://drillwordle.netlify.app/
