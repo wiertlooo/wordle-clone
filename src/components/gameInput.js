@@ -5,6 +5,9 @@ function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
 
   const [tryCount, setTryCount] = useState(0);
 
+  const [notEnoughLetters, setNotEnoughLetters] = useState(false);
+
+  //monitoring tryCount on every tryCount change
   useEffect(() => {
     if (tryCount >= 5) {
       setGameLost(true);
@@ -17,9 +20,13 @@ function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
     //swapping current userInput to array so I can map it
 
     if (userInput.length === 5) {
+      //hiding not enough letters error
+      setNotEnoughLetters(false);
+      //spliting both userInput word and keyWord to arrays
       const userWord = userInput.toUpperCase().split("");
       const gameWord = keyWord.toUpperCase().split("");
 
+      //if keyWord === userInput game is won!
       if (keyWord === userInput) {
         userWord.map((letter, index) => {
           updateBoard(tryCount, index, letter, "green");
@@ -28,7 +35,7 @@ function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
         setGameWon(true);
       } else {
         //mapping every letter to call updateBoard function passed from
-        //App.js
+        //App.js and changing if the box behind should be red/green/blue
         userWord.map((letter, index) => {
           if (gameWord[index] === letter) {
             console.log("The letter is in the right place " + letter);
@@ -40,12 +47,15 @@ function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
           }
           return letter;
         });
+        //changing tryCount to update row for next word, and
+        //monitoring game status (is lost?)
         setTryCount(tryCount + 1);
       }
       //setting userInput to blank after Submit
       setUserInput("");
     } else {
-      alert("The word should be 5 letters" + keyWord);
+      //showing not enough letters error
+      setNotEnoughLetters(true);
     }
   };
 
@@ -57,6 +67,9 @@ function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
 
   return (
     <form onSubmit={handleFormSubmit} className="form">
+      {notEnoughLetters && (
+        <h2 className="error">The word should be 5 letters long</h2>
+      )}
       <input
         type="text"
         value={userInput}
