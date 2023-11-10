@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GameContext } from "../context/game";
 
 function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
-  const [userInput, setUserInput] = useState("");
+  const { tryCount, setTryCount } = useContext(GameContext);
 
-  const [tryCount, setTryCount] = useState(0);
+  const [userInput, setUserInput] = useState("");
 
   const [notEnoughLetters, setNotEnoughLetters] = useState(false);
 
@@ -38,7 +39,6 @@ function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
         //App.js and changing if the box behind should be red/green/blue
         userWord.map((letter, index) => {
           if (gameWord[index] === letter) {
-            console.log("The letter is in the right place " + letter);
             updateBoard(tryCount, index, letter, "green");
           } else if (gameWord.includes(letter)) {
             updateBoard(tryCount, index, letter, "yellow");

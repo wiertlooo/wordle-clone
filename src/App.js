@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GameBoard from "./components/gameBoard";
 import GameInput from "./components/gameInput";
 import wordList from "./words.json";
+import { GameContext } from "./context/game";
 
 function App() {
   //using useState to create initial board that will change during game
@@ -16,6 +17,9 @@ function App() {
   const [keyWord, setKeyWord] = useState("");
   const [gameWon, setGameWon] = useState(false);
   const [gameLost, setGameLost] = useState(false);
+
+  const { setTryCount } = useContext(GameContext);
+
   //choosing random word from words.json file
   useEffect(() => {
     setKeyWord(wordList[Math.floor(Math.random() * wordList.length)]);
@@ -43,6 +47,20 @@ function App() {
     });
   };
 
+  const handleRestartGame = () => {
+    setBoard(() => {
+      const initialBoard = [];
+      for (let i = 0; i < 5; i++) {
+        initialBoard.push(Array(5).fill({ letter: "", color: "white" }));
+      }
+      return initialBoard;
+    });
+    setGameLost(false);
+    setGameWon(false);
+    setTryCount(0);
+    setKeyWord(wordList[Math.floor(Math.random() * wordList.length)]);
+  };
+
   return (
     <div>
       {gameWon && <div>You won the game!</div>}
@@ -56,6 +74,9 @@ function App() {
             setGameLost={setGameLost}
             keyWord={keyWord}
           />
+        )}
+        {(gameLost || gameWon) && (
+          <button onClick={handleRestartGame}>Restart</button>
         )}
       </div>
     </div>
