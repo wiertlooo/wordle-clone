@@ -1,6 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { GameContext } from "../context/game";
 
 function GameKeyboard() {
+  const { userInput, setUserInput } = useContext(GameContext);
   const keyLayout = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
     ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
@@ -21,6 +23,7 @@ function GameKeyboard() {
   };
 
   const handleKeyPress = (key) => {
+    setUserInput(userInput + key);
     console.log(`Pressed key: ${key}`);
   };
 

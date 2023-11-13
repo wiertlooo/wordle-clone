@@ -4,12 +4,11 @@ const GameContext = createContext();
 
 const GameProvider = ({ children }) => {
   const [tryCount, setTryCount] = useState(0);
+  const [userInput, setUserInput] = useState("");
 
-  return (
-    <GameContext.Provider value={{ tryCount, setTryCount }}>
-      {children}
-    </GameContext.Provider>
-  );
+  const values = { tryCount, setTryCount, userInput, setUserInput };
+
+  return <GameContext.Provider value={values}>{children}</GameContext.Provider>;
 };
 
 export { GameProvider, GameContext };

@@ -2,9 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { GameContext } from "../context/game";
 
 function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
-  const { tryCount, setTryCount } = useContext(GameContext);
-
-  const [userInput, setUserInput] = useState("");
+  const { tryCount, setTryCount, userInput, setUserInput } =
+    useContext(GameContext);
 
   const [notEnoughLetters, setNotEnoughLetters] = useState(false);
 
