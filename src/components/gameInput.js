@@ -63,6 +63,20 @@ function GameInput({ updateBoard, setGameWon, setGameLost, keyWord }) {
   //input with state, so it is controlled by react, not browser
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
+
+    const inputText = event.target.value.toUpperCase();
+
+    //loop reesponsible for setting board while typing
+    // i < 5 - 5 is wordLength
+    for (let i = 0; i < 5; i++) {
+      //if i < input length updateBoard to letter
+      if (i < inputText.length) {
+        updateBoard(tryCount, i, inputText[i], "white");
+      } else {
+        //set remaining tiles as blank
+        updateBoard(tryCount, i, "", "white");
+      }
+    }
   };
 
   return (

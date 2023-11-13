@@ -47,6 +47,9 @@ function App() {
     });
   };
 
+  //restarting game on restart button clicked
+  //this function is setting everything to initial state
+  //and is choosing word from words.json file again
   const handleRestartGame = () => {
     setBoard(() => {
       const initialBoard = [];
