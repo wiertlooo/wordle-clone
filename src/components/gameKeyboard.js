@@ -17,7 +17,7 @@ function GameKeyboard() {
 
   const handleKeyDown = (event) => {
     const key = event.key.toUpperCase();
-    console.log(key);
+    handleKeyPress(key);
   };
 
   const handleKeyPress = (key) => {
