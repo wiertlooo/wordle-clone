@@ -1,8 +1,11 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { GameContext } from "../context/game";
 
-function GameKeyboard({ updateBoard }) {
-  const { userInput, setUserInput, tryCount } = useContext(GameContext);
+function GameKeyboard({ updateBoard, setGameLost, setGameWon, keyWord }) {
+  const { userInput, setUserInput, tryCount, setTryCount } =
+    useContext(GameContext);
+
+  const [notEnoughLetters, setNotEnoughLetters] = useState(false);
 
   const keyLayout = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -18,6 +21,13 @@ function GameKeyboard({ updateBoard }) {
       keyboardRef.current.focus();
     }
   }, []);
+
+  //monitoring tryCount on every tryCount change
+  useEffect(() => {
+    if (tryCount >= 5) {
+      setGameLost(true);
+    }
+  }, [tryCount, setGameLost]);
 
   //hook resposnible for updating tiles
   useEffect(() => {
@@ -48,12 +58,52 @@ function GameKeyboard({ updateBoard }) {
       if (key === "BACKSPACE") {
         setUserInput((prevInput) => prevInput.slice(0, -1));
       } else if (key === "ENTER") {
-        console.log("formSubmitFunction");
+        handleEnterSubmit();
       } else {
         setUserInput((prevInput) => prevInput + key);
       }
     }
     console.log(`Pressed key: ${key}`);
+  };
+
+  const handleEnterSubmit = () => {
+    if (userInput.length === 5) {
+      //hiding not enough letters error
+      setNotEnoughLetters(false);
+      //spliting both userInput word and keyWord to arrays
+      const userWord = userInput.toUpperCase().split("");
+      const gameWord = keyWord.toUpperCase().split("");
+
+      //if keyWord === userInput game is won!
+      if (keyWord === userInput) {
+        userWord.map((letter, index) => {
+          updateBoard(tryCount, index, letter, "green");
+          return letter;
+        });
+        setGameWon(true);
+      } else {
+        //mapping every letter to call updateBoard function passed from
+        //App.js and changing if the box behind should be red/green/blue
+        userWord.map((letter, index) => {
+          if (gameWord[index] === letter) {
+            updateBoard(tryCount, index, letter, "green");
+          } else if (gameWord.includes(letter)) {
+            updateBoard(tryCount, index, letter, "yellow");
+          } else {
+            updateBoard(tryCount, index, letter, "red");
+          }
+          return letter;
+        });
+        //changing tryCount to update row for next word, and
+        //monitoring game status (is lost?)
+        setTryCount(tryCount + 1);
+      }
+      //setting userInput to blank after Submit
+      setUserInput("");
+    } else {
+      //showing not enough letters error
+      setNotEnoughLetters(true);
+    }
   };
 
   //function responsible for mapping keyboard,
@@ -78,8 +128,13 @@ function GameKeyboard({ updateBoard }) {
   });
 
   return (
-    <div tabIndex="0" onKeyDown={handleKeyDown} ref={keyboardRef}>
-      {keyboard}
+    <div>
+      {notEnoughLetters && (
+        <h2 className="error">The word should be 5 letters long</h2>
+      )}
+      <div tabIndex="0" onKeyDown={handleKeyDown} ref={keyboardRef}>
+        {keyboard}
+      </div>
     </div>
   );
 }

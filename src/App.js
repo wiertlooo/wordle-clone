@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState, useCallback } from "react";
 import GameBoard from "./components/gameBoard";
-import GameInput from "./components/gameInput";
 import wordList from "./words.json";
 import { GameContext } from "./context/game";
 import GameKeyboard from "./components/gameKeyboard";
@@ -76,17 +75,16 @@ function App() {
       <div className="game">
         <GameBoard board={board} />
         {!gameWon && !gameLost && (
-          <GameInput
+          <GameKeyboard
             updateBoard={updateBoard}
-            setGameWon={setGameWon}
             setGameLost={setGameLost}
+            setGameWon={setGameWon}
             keyWord={keyWord}
           />
         )}
         {(gameLost || gameWon) && (
           <button onClick={handleRestartGame}>Restart</button>
         )}
-        <GameKeyboard updateBoard={updateBoard} />
       </div>
     </div>
   );
