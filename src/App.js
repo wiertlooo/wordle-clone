@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import GameBoard from "./components/gameBoard";
 import GameInput from "./components/gameInput";
 import wordList from "./words.json";
@@ -29,24 +29,28 @@ function App() {
   // you need to pass row number, then cell number, and value
   //prevBoard is used bcs otherwise it would update only last index when
   //called in gameInput due to board rendering issues
-  const updateBoard = (rowNumber, cellNumber, value, color) => {
-    setBoard((prevBoard) => {
-      const updatedBoard = prevBoard.map((row, rowIndex) => {
-        if (rowIndex === rowNumber) {
-          return row.map((cell, cellIndex) => {
-            if (cellIndex === cellNumber) {
-              return { letter: value.toUpperCase(), color: color };
-            } else {
-              return cell;
-            }
-          });
-        } else {
-          return row;
-        }
+  //using useCallback so it wont re-render infinitely
+  const updateBoard = useCallback(
+    (rowNumber, cellNumber, value, color) => {
+      setBoard((prevBoard) => {
+        const updatedBoard = prevBoard.map((row, rowIndex) => {
+          if (rowIndex === rowNumber) {
+            return row.map((cell, cellIndex) => {
+              if (cellIndex === cellNumber) {
+                return { letter: value.toUpperCase(), color: color };
+              } else {
+                return cell;
+              }
+            });
+          } else {
+            return row;
+          }
+        });
+        return updatedBoard;
       });
-      return updatedBoard;
-    });
-  };
+    },
+    [setBoard]
+  );
 
   //restarting game on restart button clicked
   //this function is setting everything to initial state
@@ -82,7 +86,7 @@ function App() {
         {(gameLost || gameWon) && (
           <button onClick={handleRestartGame}>Restart</button>
         )}
-        <GameKeyboard />
+        <GameKeyboard updateBoard={updateBoard} />
       </div>
     </div>
   );
