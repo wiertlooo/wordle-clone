@@ -3,6 +3,7 @@ import GameBoard from "./components/gameBoard";
 import GameInput from "./components/gameInput";
 import wordList from "./words.json";
 import { GameContext } from "./context/game";
+import GameKeyboard from "./components/gameKeyboard";
 
 function App() {
   //using useState to create initial board that will change during game
@@ -81,6 +82,7 @@ function App() {
         {(gameLost || gameWon) && (
           <button onClick={handleRestartGame}>Restart</button>
         )}
+        <GameKeyboard />
       </div>
     </div>
   );

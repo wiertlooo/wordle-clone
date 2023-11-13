@@ -63,3 +63,13 @@
   height: 100vh;
   flex-direction: column;
 }
+.keyRow {
+  display: flex;
+}
+
+.keyTile {
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
